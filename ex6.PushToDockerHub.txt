@@ -16,7 +16,7 @@ cd pythonapp
 #############################
 # Create python app
 #############################
-cat << EOF >> ~/pythonapp/app.py
+cat << EOF >> ~/working/pythonapp/app.py
 from flask import Flask
 import os
 import socketapp = Flask(__name__)@app.route(“/”)def hello():
@@ -29,14 +29,14 @@ EOF
 #############################
 # Create requirements file for Python
 #############################
-cat << EOF >> ~/pythonapp/requirements.txt
+cat << EOF >> ~/working/pythonapp/requirements.txt
 Flask
 EOF
 
 #############################
 # Create App Image
 #############################
-cat << EOF >> ~/pythonapp/Dockerfile
+cat << EOF >> ~/working/pythonapp/Dockerfile
 FROM python
 WORKDIR /app
 ADD . /app
@@ -49,7 +49,7 @@ EOF
 #############################
 # Build Container
 #############################
-docker build -t python_image -f ~/pythonapp/Dockerfile
+docker build -t python_image -f ~/working/pythonapp/Dockerfile
 docker images
 
 #############################
