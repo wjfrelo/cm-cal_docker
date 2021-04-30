@@ -1,0 +1,48 @@
+#-----------------------------
+# GOAL: Create Image
+#-----------------------------
+
+###############################
+# Create directory
+###############################
+mkdir -p ~/working/l2
+
+###############################
+# Review Dockerfile syntax
+###############################
+https://docs.docker.com/engine/reference/builder/
+
+###############################
+# Create Dockerfile in created directory
+###############################
+
+cat << EOF >> ~/working/l2/Dockerfile
+FROM ubuntu
+RUN apt-get update
+RUN apt-get install -y nginx
+COPY index.nginx-debian.html /var/www/html
+CMD nginx -g 'daemon off;'
+EOF
+
+###############################
+# Create Index HTML File
+###############################
+
+cat << EOF >> i ~/working/l2/index.nginx-debian.html
+WELCOME TO NGINX.
+EOF
+
+###############################
+# Build Image
+###############################
+sudo docker build -f ~/working/l2/Dockerfile
+
+###############################
+# Verify Image
+###############################
+sudo docker images
+
+###############################
+View layers
+###############################
+docker history --no-trunc <Image ID>

@@ -1,0 +1,39 @@
+#-----------------------------
+# GOAL: Create and Control Registry
+#-----------------------------
+
+###############################
+# Start Docker Registry
+###############################
+docker run -d -p 5000:5000 --restart=always --name registry registry:2
+
+###############################
+# Verify no Images in Registry
+###############################
+curl -X GET http://localhost:5000/v2/_catalog
+docker ps
+
+###############################
+# Pull new image
+###############################
+sudo docker pull ubuntu:16.04
+
+###############################
+# Tag Image for Registry
+###############################
+docker tag ubuntu:16.04 localhost:5000/my-ubuntu
+
+###############################
+# Push image to Registry
+###############################
+sudo docker push localhost:5000/my-ubuntu
+sudo docker image remove ubuntu:16.04
+curl -X GET http://localhost:5000/v2/_catalog
+
+###############################
+# Remove image from registry
+###############################
+docker image remove localhost:5000/my-ubuntu
+docker pull localhost:5000/my-ubuntu
+docker container stop registry
+

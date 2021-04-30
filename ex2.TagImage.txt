@@ -1,0 +1,33 @@
+#-----------------------------
+# GOAL: Tag Images
+#-----------------------------
+docker pull nginx:latest
+
+###############################
+# View images
+###############################
+docker images
+
+###############################
+# Tag Image using ID
+###############################
+docker tag <enterImageID> demo/nginx_img:version1.0
+docker images
+
+###############################
+# Tag Using Name
+###############################
+docker tag <enterImageName> demo/nginx_img:version2.0
+docker images
+
+###############################
+# Tag Using Name and "version" tab
+###############################
+docker tag <EnterImageName>:<EnterTag> demo/nginx_img:version3.0.latest
+docker images
+
+###############################
+# Tag for local Registryu
+###############################
+docker tag <EnterID> myregistry:5000/demo/nginx_img:version4.0
+docker images

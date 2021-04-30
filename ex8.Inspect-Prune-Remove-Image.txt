@@ -1,0 +1,23 @@
+##################################
+# Pull Image
+##################################
+sudo docker pull nginx:latest
+
+sudo docker image inspect nginx:latest
+
+##################################
+# Inspect and parse variables
+##################################
+sudo docker image inspect nginx:latest
+docker inspect --format='{{range .NetworkSettings.Networks}}{{.MacAddress}}{{end}}' $INSTANCE_ID
+
+##################################
+# Remove Images
+##################################
+# Parse inspect info
+sudo docker images
+sudo docker image rm <EnterImageID>
+sudo docker image rm --force <EnterImageID>
+
+# Remove all untagged images
+sudo docker image prune --all

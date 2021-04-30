@@ -1,0 +1,14 @@
+sudo docker pull nginx
+
+sudo docker tag nginx localhost:5000/nginx
+
+sudo docker push localhost:5000/nginx
+
+sudo docker image remove nginx
+
+sudo docker pull localhost:5000/nginx
+
+sudo docker ps
+
+sudo docker container stop registry
+

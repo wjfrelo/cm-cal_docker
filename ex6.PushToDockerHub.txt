@@ -1,0 +1,70 @@
+#-----------------------------
+# GOAL: Create Login Registry
+#-----------------------------
+
+#############################
+# Enroll Dockerhub
+#############################
+https://hub.docker.com
+
+#############################
+# Create App Dir
+#############################
+mkdir ~/working/pythonapp
+cd pythonapp
+
+#############################
+# Create python app
+#############################
+cat << EOF >> ~/pythonapp/app.py
+from flask import Flask
+import os
+import socketapp = Flask(__name__)@app.route(“/”)def hello():
+html = "<h3>Hello {name}!</h3>"" \
+            "<b>Hostname:</b> {hostname}<br/>"
+return html.format(name=os.getenv(“NAME”, “world”), hostname=socket.gethostname()) if __name__ == “__main__”:
+     app.run(host=’0.0.0.0', port=80)
+EOF
+
+#############################
+# Create requirements file for Python
+#############################
+cat << EOF >> ~/pythonapp/requirements.txt
+Flask
+EOF
+
+#############################
+# Create App Image
+#############################
+cat << EOF >> ~/pythonapp/Dockerfile
+FROM python
+WORKDIR /app
+ADD . /app
+RUN pip install -r requirements.txt
+EXPOSE 80
+ENV NAME world
+CMD ["python", "app.py"]
+EOF
+
+#############################
+# Build Container
+#############################
+docker build -t python_image -f ~/pythonapp/Dockerfile
+docker images
+
+#############################
+# Login to Dockerhub Container
+#############################
+docker login
+
+#############################
+# Push Image to DockerHub
+#############################
+docker tag python_image <EnterUsername>/python_image:version1
+docker push <EnterUsername>/python_image:version1
+
+#############################
+# Push Image to Registry
+#############################
+docker tag python_image localhost:5000/python_image
+docker push localhost:5000/python_image

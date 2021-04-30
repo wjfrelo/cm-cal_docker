@@ -1,0 +1,7 @@
+#-----------------------------
+# GOAL: Create Login Registry
+#-----------------------------
+sudo docker run --entrypoint htpasswd httpd:2.4 -Bbn student password > auth/httpd.htpasswd
+
+sudo docker login localhost:5000
+
