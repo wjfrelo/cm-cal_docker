@@ -42,6 +42,6 @@ docker ps -a
 docker container rm <EnterID?>
 
 ################################
-# Stop and Delete Image
+# Delete Image
 ################################
 docker image rm nginx
