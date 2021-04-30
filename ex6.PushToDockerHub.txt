@@ -11,7 +11,7 @@ https://hub.docker.com
 # Create App Dir
 #############################
 mkdir ~/working/pythonapp
-cd pythonapp
+cd ~/working/pythonapp
 
 #############################
 # Create python app
