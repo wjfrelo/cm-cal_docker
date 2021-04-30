@@ -10,7 +10,7 @@ docker stop <id>
 docker container rm <id>
 
 ###############################
-# Configure Registry
+# Configure Registry Environment Variable
 ###############################
 
 docker run -d -p 5000:5000 --restart=always --name registry -e REGISTRY_STORAGE_FILESYSTEM_ROOTDIRECTORY=~/working registry:2
