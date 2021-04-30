@@ -2,6 +2,14 @@
 # GOAL: Configure Registry
 #-----------------------------
 
+###############################
+# Configure Registry
+###############################
+
+###############################
+# Configure Registry
+###############################
+
 docker run -d -p 5000:5000 --restart=always --name registry -e REGISTRY_STORAGE_FILESYSTEM_ROOTDIRECTORY=~/working registry:2
 docker ps
 
@@ -39,5 +47,5 @@ EOF
 ###############################
 # Configure Registry
 ###############################
-docker run -d -p 8000:80 --restart=always --name registry -v `pwd`/config.yml:/etc/docker/config.yml registry:2
+docker run -d -p 8000:80 --restart=always --name registry1 -v `pwd`/config.yml:/etc/docker/config.yml registry:2
 docker ps
