@@ -27,7 +27,7 @@ docker tag <EnterImageName>:<EnterTag> demo/nginx_img:version3.0.latest
 docker images
 
 ###############################
-# Tag for local Registryu
+# Tag for local Registry
 ###############################
 docker tag <EnterID> myregistry:5000/demo/nginx_img:version4.0
 docker images
