@@ -3,8 +3,11 @@
 #-----------------------------
 
 ###############################
-# Configure Registry
+# Ensure all other "container" are stopped and removed 
 ###############################
+docker ps
+docker stop <id>
+docker container rm <id>
 
 ###############################
 # Configure Registry
