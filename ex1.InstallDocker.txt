@@ -1,0 +1,10 @@
+#-----------------------------
+# GOAL: INSTALL DOCKER
+#-----------------------------
+
+# Docker is installed. Review "install_docker.sh" script
+
+# Give user access to the docker socket to enable without "sudo"
+sudo chown labsuser /var/run/docker.sock
+
+

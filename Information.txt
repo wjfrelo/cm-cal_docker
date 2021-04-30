@@ -1,0 +1,48 @@
+# Docker Engine/ Docker Runtime
+################################################
+systemctl status docker
+
+- Review runc runtime: https://github.com/opencontainers/runc
+- Review CRI-O runtime: https://github.com/cri-o/cri-o
+
+# Docker CLI
+################################################
+docker help
+
+# Get more information about the docker instance (storage location=/var/lib/docker)
+################################################
+docker info
+
+# Docker Image
+################################################
+docker pull redis
+
+# Docker layers for images
+################################################
+docker history redis
+
+# Docker Layers
+################################################
+mkdir -p ~/working/ex1
+
+################################################
+# Create ~/working/ex1/Dockerfile & add content
+################################################
+git clone https://github.com/nginxinc/docker-nginx.git
+cd docker-nginx/mainline/debian && docker build  .
+
+# List image and get image id
+docker images
+
+docker history <enterImageID>
+
+################################################
+# Docker Container
+################################################
+docker run -itd redis /bin/bash
+
+################################################
+# Docker Container
+################################################
+docker exec -it $(docker ps |  sed -n '2 p' |  awk '{print $1}') /bin/bash
+

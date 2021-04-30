@@ -1,0 +1,47 @@
+#-----------------------------
+# GOAL: IMAGE AND CONTAINER MANAGEMENT
+#-----------------------------
+
+################################
+# Pull Image
+################################
+docker pull nginx
+
+################################
+# Run NGINX Image
+################################
+docker run -dt -p 80:80 nginx
+
+################################
+# Open Desktop and goto URL
+################################
+localhost:80
+
+################################
+# View Running Containers
+################################
+docker ps
+
+################################
+# Stop Containers
+################################
+docker stop <EnterID>
+docker ps -a
+
+################################
+# Start Containers
+################################
+docker start <EnterID>
+docker  ps
+
+################################
+# Stop and Delete Containers
+################################
+docker stop <EnterID>
+docker ps -a
+docker container rm <EnterID?>
+
+################################
+# Stop and Delete Image
+################################
+docker image rm nginx

@@ -1,0 +1,71 @@
+#-----------------------------
+# GOAL: CONTROL DOCKER ENGINE STARTUP
+#-----------------------------
+
+#####################################
+# Verify docker service. It's enabled
+#####################################
+sudo systemctl status docker
+
+#####################################
+# Disable docker on server startup:
+#####################################
+sudo systemctl disable docker
+
+#####################################
+# Disable docker on server startup:
+#####################################
+echo manual | sudo tee /etc/init/docker.override
+
+#####################################
+# Anytime you disable or enable service:
+#####################################
+sudo systemctl daemon-reload
+
+#####################################
+# Controlling startup of container on system on boot
+#####################################
+Read: https://docs.docker.com/config/containers/start-containers-automatically/#use-a-restart-policy
+
+# sudo vi /etc/systemd/system/docker-redis.service
+#####################################
+[Unit]
+Description=Redis container
+Requires=docker.service
+After=docker.service
+
+[Service]
+Restart=always
+ExecStart=/usr/bin/docker start -a redis
+ExecStop=/usr/bin/docker stop -t 2 redis
+
+[Install]
+WantedBy=default.target
+
+#####################################
+# Enable container service
+#####################################
+sudo systemctl enable docker-redis.service
+
+CONTROL DOCKER CONTAINER SETTINGS
+# Storage drive options:# aufs, devicemapper, btrfs, zfs, overlay, overlay2, and fuse-overlayfs
+# Read: https://docs.docker.com/engine/reference/commandline/dockerd/#daemon-storage-driver
+
+#####################################
+# Change default Docker Runtime Settings
+#####################################
+cat << EOF >> /etc/docker/daemon.json
+{
+    "data-root": "/mnt/docker-data",
+
+    "storage-driver": "overlay2"
+}
+EOF
+
+#####################################
+# Restart Docker Engine Service
+#####################################
+systemctl restart docker
+
+
+CONTROL DOCKER STORAGE SETTINGS
