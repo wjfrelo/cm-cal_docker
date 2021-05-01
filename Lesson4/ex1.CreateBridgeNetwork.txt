@@ -29,7 +29,7 @@ docker network ls
 
 ## Inspect network
 #----------------------------------
-docker inspect bridge
+docker network inspect bridge
 
 #----------------------------------
 # Container to Container
