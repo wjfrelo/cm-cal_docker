@@ -16,6 +16,7 @@ docker node ls
 
 ## Add Labels
 #----------------------------
+docker node update --label-add type=leader <EnterHostNameMaster>
 docker node update --label-add type=compute <EnterHostNameWorker1>
 docker node update --label-add type=data <EnterHostNameWorker2>
 
