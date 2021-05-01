@@ -19,7 +19,6 @@ docker network inspect host
 ## Stop Container
 #--------------------------------------------
 docker container stop simple-nginx
-docker container rm simple-nginx
 
 ## Prune Network (Deletes non-used networks)
 #--------------------------------------------
