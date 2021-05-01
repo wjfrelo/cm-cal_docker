@@ -22,7 +22,7 @@ docker node update --label-add type=data <EnterHostNameWorker2>
 
 ## Filter Nodes
 #----------------------------
-docker node ls -f type=compute
+docker node ls -f node.label=leader
 
 ## Inspect Nodes
 #----------------------------
