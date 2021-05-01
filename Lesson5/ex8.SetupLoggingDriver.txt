@@ -1,0 +1,53 @@
+
+
+###########################
+# Configure Container Loggers
+###########################
+
+Logging Modes:
+- blocking:     Delivers logs from container to driver
+- non-blocking: Stores log messages in an intermediate per-container ring buffer
+                for consumption by drive
+
+Logger Driver Info: https://docs.docker.com/config/containers/logging/configure/
+
+# View docker logs from running container
+----------------------------
+docker ps
+docker logs<EnterID>
+
+# Edit daemon.json file to change default
+#---------------------------
+sudo cat << EOF > /etc/docker/daemon.json
+{
+    "data-root": "/mnt/docker-data",
+    "storage-driver": "devicemapper",
+    "dns":["8.8.8.8","8.8.4.4"],
+    "log-driver": "syslog"
+}
+EOF
+
+# Restart Docker Engine
+#---------------------------
+systemctl restart docker
+
+# View Default Logging Driver
+#---------------------------
+docker info --format '{{.LoggingDriver}}'
+
+# View Default Logging Driver
+#---------------------------
+docker run -it --log-driver journald --name simple-nginx-logging
+
+# View Default Logging Driver
+#---------------------------
+docker ps -a
+
+# Inspect container for Logging Configuration
+#---------------------------
+sudo docker inspect -f '{{.HostConfig.LogConfig.Type}}' simple-nginx-logging
+
+# Run non-blocking container logging mode
+#---------------------------
+sudo docker run -it --log-opt mode=non-blocking --log-opt max-buffer-size=3m --name busybox_container busybox
+
