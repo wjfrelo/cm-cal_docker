@@ -6,7 +6,7 @@ A docker stack is similar to kubernetes pod
 
 docker node ls
 docker node update --availability drain <HostName_Worker_Node>
-docker service create --name registry --publish published=5000,target=5000 registry:2 --replica 3
+docker service create --name registry --publish published=5000,target=5000 registry:2
 docker service ls
 
 # Install Docker-Compose
