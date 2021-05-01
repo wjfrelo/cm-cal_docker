@@ -13,3 +13,17 @@ e.g., docker swam join --token xxxxxxx
 ## View SWARM nodes
 #----------------------------
 docker node ls
+
+## Add Labels
+#----------------------------
+docker node update --label-add type=compute <EnterHostNameWorker1>
+docker node update --label-add type=data <EnterHostNameWorker2>
+
+## Filter Nodes
+#----------------------------
+docker node ls -f type=compute
+
+## Inspect Nodes
+#----------------------------
+docker node inspect <EnterHostNameWorker1>
+docker node inspect <EnterHostNameWorker2>
