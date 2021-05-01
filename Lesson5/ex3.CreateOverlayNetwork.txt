@@ -17,7 +17,7 @@ docker service create --name nginx-service-overlay \
 
 # Verify Overlay Network
 #--------------------------
-docker network inspect nginx-service-overlay
+docker network inspect nginx-overlay
 
 # Verify Create Service
 #--------------------------
