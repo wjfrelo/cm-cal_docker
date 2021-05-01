@@ -8,7 +8,7 @@ docker swarm init
 
 ## Copy and Execute Join Command on Workers
 #----------------------------
-e.g., docker swam join --token xxxxxxx
+e.g., docker swarm join --token xxxxxxx
 
 ## View SWARM nodes
 #----------------------------
