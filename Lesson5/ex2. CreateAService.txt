@@ -1,0 +1,39 @@
+###########################
+# Create SWARM Services
+###########################
+
+# Create replicated service (# of replicated containers)
+#-------------------------------
+docker service create --name simple-app --replicas 2 nginx
+
+# Verify replicated service
+#-------------------------------
+docker service ls
+docker service ps <id>
+
+# Verify images downloaded to workers
+#-------------------------------
+docker images
+
+
+# Create Global Service (deploys one container to each node)
+#-------------------------------
+docker service create --name simple-service --mode global alpine top
+
+# Verify service
+#-------------------------------
+docker service ls
+
+# Create Container as a Service
+#-------------------------------
+docker service create --name nginx-service --replicas 4 nginx:latest
+
+# Verify service
+#-------------------------------
+docker service ls
+
+# Check status of global service
+#-------------------------------
+docker service ps simple-service
+docker service ps simple-app
+docker service ps nginx-service

@@ -8,6 +8,7 @@ sudo docker image inspect nginx:latest
 ##################################
 # Inspect and parse variables
 ##################################
+# Read: https://blog.container-solutions.com/docker-inspect-template-magic
 sudo docker image inspect nginx:latest
 docker inspect --format='{{range .NetworkSettings.Networks}}{{.MacAddress}}{{end}}' $INSTANCE_ID
 

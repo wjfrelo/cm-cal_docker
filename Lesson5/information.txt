@@ -1,0 +1,7 @@
+- Volumes allows data to persist to disk for/from containers
+- Mounts are dependant upon the O/S, volumes are managed wholly by Docker
+  - --tmpfs: Temporary directory mapped to container folder.Can't be shared between containers.
+             Can't be used with swarm (--tmpfs /app).
+  - --mount: Bind Mount is a file or directory on the host machine is mounted into a container
+             Persists to host memory. Types can be volumes, tmpfs, or bind. (--mount type=tmpfs,destination=/app)
+  - --volume: Three fields separated by " : " (<unique-host-name>:<host-path>:<container-path>)

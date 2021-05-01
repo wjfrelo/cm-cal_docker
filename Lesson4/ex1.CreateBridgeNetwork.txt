@@ -1,0 +1,65 @@
+#############################################
+# Connect Containers via Default Bridge Network
+#############################################
+
+#--------------------------------------------
+# View Networks
+#--------------------------------------------
+docker network ls
+
+#--------------------------------------------
+# Inspect Target Docker Network
+#--------------------------------------------
+docker network inspect bridge
+
+#--------------------------------------------
+# Create Containers
+#--------------------------------------------
+
+docker run -dit --name alpine1 alpine ash
+docker run -dit --name alpine2 alpine ash
+
+#--------------------------------------------
+# Inspect network
+#--------------------------------------------
+
+## List container networks
+#----------------------------------
+docker network ls
+
+## Inspect network
+#----------------------------------
+docker inspect bridge
+
+#----------------------------------
+# Container to Container
+#----------------------------------
+
+## Login to container
+#----------------------------------
+docker attach alpine1
+
+## View container network info
+#----------------------------------
+ip addr
+
+## Ping other container by ip
+#----------------------------------
+ping <EnterIP>
+
+## Ping other container by name
+#----------------------------------
+ping alpine2
+
+## Exit container
+#----------------------------------
+ctrl + p + q
+
+## Stop and delete containers
+#----------------------------------
+
+docker container stop alpine1 alpine2
+docker container rm alpine1 alpine2
+
+
+

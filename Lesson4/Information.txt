@@ -1,0 +1,15 @@
+Network Drivers
+
+- bridge : The default network driver. Usually used when applications run in standalone containers that communicate.
+
+- host   : For standalone containers. Uses the Docker host networking directly. The host networking driver only works
+           on Linux hosts, and is not supported on Docker Desktop for Mac, Docker Desktop for Windows, or Docker EE for Windows Server.
+
+- overlay: Connect multiple Docker daemons together and enable swarm services comms. Used when communication between swarm service and standalone container,
+           or between two standalone containers on different Docker daemons.
+
+- macvlan: Macvlan networks assignment of MAC address to container, making it appear as a physical device. The Docker daemon routes traffic to containers by their MAC addresses.
+           Using the macvlan driver is sometimes the best choice when dealing with legacy applications that expect to be directly connected to the physical network.
+
+- none   : For this container, disable all networking. Usually used in conjunction with a custom network driver. none is not available for swarm services. See disable container networking.
+

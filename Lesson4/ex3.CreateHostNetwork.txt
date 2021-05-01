@@ -1,0 +1,26 @@
+#############################################
+# Connect Containers via Host Network
+#############################################
+
+#--------------------------------------------
+# View Host Defined Network
+#--------------------------------------------
+docker network ls
+
+#--------------------------------------------
+# Start Container on Host Based Network
+#--------------------------------------------
+docker run --rm -d --network host --name simple-nginx nginx
+
+## Inspect Host Network
+#--------------------------------------------
+docker network inspect host
+
+## Stop Container
+#--------------------------------------------
+docker container stop simple-nginx
+
+## Prune Network (Deletes non-used networks)
+#--------------------------------------------
+docker network prune
+

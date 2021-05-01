@@ -1,0 +1,20 @@
+###########################
+# Create Volumes For Deployed Apps
+###########################
+
+# Read mount types: https://docs.docker.com/storage/bind-mounts/
+# Read volumes: https://docs.docker.com/storage/volumes/
+
+# Create and verify volume created
+#--------------------------
+docker volume create simple-volume
+docker volume ls
+
+# Create replicated service with volume
+#--------------------------
+sudo docker service create -d --replicas=4 --name nginx-replicated-service --mount source=simple-volume,target=/app nginx:latest
+sudo docker service ps nginx-replicated-service
+
+# Check volume on worker nodes
+#-----------------------------
+docker volume ls

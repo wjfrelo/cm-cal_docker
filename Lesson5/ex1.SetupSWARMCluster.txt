@@ -1,0 +1,15 @@
+###########################
+# Create SWARM Cluster
+###########################
+
+## Initialize Master SWARM Node
+#----------------------------
+docker swarm init
+
+## Copy and Execute Join Command on Workers
+#----------------------------
+e.g., docker swam join --token xxxxxxx
+
+## View SWARM nodes
+#----------------------------
+docker node ls

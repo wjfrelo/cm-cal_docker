@@ -1,0 +1,64 @@
+###########################
+# Create an Application Stack Using Docker Compose
+###########################
+
+A docker stack is similar to kubernetes pod
+
+docker node ls
+docker node update --availability drain IP_ADDRESS_Worker_Node
+docker service create --name registry --publish published=5000,target=5000 registry:2 --replica 3
+docker service ls
+
+# Install Docker-Compose
+sudo curl -L "https://github.com/docker/compose/releases/download/1.29.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
+docker-compose --version
+
+mkdir ~/simple-stack && cd ~/simple-stack
+
+cat << EOF > ~/simple-stack/app.py
+from flask import Flask
+from redis import Redis
+
+app = Flask(__name__)
+redis = Redis(host='redis', port=6379)
+
+@app.route('/')
+def hello():
+    count = redis.incr('hits')
+    return 'Hello World! I have been seen {} times.\n'.format(count)
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=8020, debug=True)
+EOF
+
+cat << EOF > ~/simple-stack/requirements.txt
+flask
+redis
+EOF
+
+cat << EOF > ~/simple-stack/Dockerfile
+FROM python
+ADD . /code
+WORKDIR /code
+RUN pip install -r requirements.txt
+CMD ["python", "app.py"]
+EOF
+
+cat << EOF > ~/simple-stack/docker-compose.yml
+version: "3.3"
+services:
+  web:
+    image: 127.0.0.1:5000/stackdemo
+    build: .
+    ports:
+      - "8020:8020"
+  redis:
+    image: redis:alpine
+EOF
+
+docker-compose up -d
+
+
+
+

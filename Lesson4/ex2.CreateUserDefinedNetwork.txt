@@ -1,0 +1,79 @@
+#############################################
+# Connect Containers via User Defined Network
+#############################################
+
+#--------------------------------------------
+# Create User Defined Network
+#--------------------------------------------
+docker network create --driver bridge simple
+
+#--------------------------------------------
+# View Networks
+#--------------------------------------------
+docker network ls
+
+#--------------------------------------------
+# Inspect Target Network
+#--------------------------------------------
+docker network inspect simple
+
+#--------------------------------------------
+# Create Containers
+#--------------------------------------------
+docker run -dit --name alpine1 --network simple alpine ash
+docker run -dit --name alpine2 --network simple alpine ash
+docker run -dit --name alpine4 --network simple alpine ash
+docker run -dit --name alpine3 alpine ash
+
+## Verify containers running
+#------------------------------
+docker ps
+
+#--------------------------------------------
+# Inspect Both Networks
+#--------------------------------------------
+docker network inspect bridge
+docker network inspect simple
+
+#--------------------------------------------
+# Containers to Containers
+#--------------------------------------------
+docker attach alpine1
+ping -c 2 alpine2
+ping -c 2 alpine3
+ping -c 2 alpine4
+
+## Exit container
+#----------------------------------
+ctrl + p + q
+
+## Connect Container to Other Network
+#----------------------------------
+# A running container to multiple networks using docker network connect
+docker network connect bridge alpine4
+
+#--------------------------------------------
+# Change Container Network
+#--------------------------------------------
+docker network connect simple alpine3
+
+## Verify container on Simple Network
+#----------------------------------
+docker network inspect simple
+
+#--------------------------------------------
+# Containers to Containers
+#--------------------------------------------
+docker attach alpine1
+ping -c 2 alpine2
+ping -c 2 alpine3
+ping -c 2 alpine4
+
+## Exit container
+#----------------------------------
+ctrl + p + q
+
+## Stop and delete containers
+#----------------------------------
+docker container stop alpine1 alpine2 alpine3 alpine4
+docker container rm alpine1 alpine2 alpine3 alpine4

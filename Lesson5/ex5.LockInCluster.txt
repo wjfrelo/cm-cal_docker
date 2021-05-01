@@ -1,0 +1,31 @@
+####################################
+# Prevent Unauthorized Access
+####################################
+
+#-------------------------------
+# Update lock status (Encyrption)
+#-------------------------------
+# SWMKEY-1-hkzjk0kjH9XzLdvfrpI4VmeRlOQsna0KaMdKiA7Zzjk
+docker swarm update --autolock=true
+
+# Restart docker service
+#-------------------------------
+sudo systemctl restart docker
+
+# Try to run command. Should Error.docker swarm unlock-key
+#-------------------------------
+docker service ls
+
+# Unlock cluster by placing encryption key
+#-------------------------------
+docker swarm unlock
+
+# View Encryption Key
+#-------------------------------
+docker swarm unlock-key
+
+# Disable Autolock
+#-------------------------------
+docker swarm update --autolock=false
+
+

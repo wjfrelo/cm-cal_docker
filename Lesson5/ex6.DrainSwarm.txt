@@ -1,0 +1,29 @@
+###########################
+# Drain SWARM Cluster
+###########################
+
+## Review a service and see node distribution
+#----------------------------
+docker service ls
+docker service ps <serviceName>
+
+## Drain the desired node
+#----------------------------
+docker node update --availability drain <EnterNodeName>
+
+## Inspect the desired node
+#----------------------------
+docker node inspect --pretty <EnterNodeName>
+docker node ps <EnterNodeName>
+docker node ls
+
+## Make the targeted node active
+#----------------------------
+docker node update --availability active <EnterNodeName>
+
+## Inspect the desired node
+#----------------------------
+docker node inspect --pretty <EnterNodeName>
+docker node ps <EnterNodeName>
+docker node ls
+

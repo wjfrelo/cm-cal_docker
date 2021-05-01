@@ -26,8 +26,8 @@ docker tag ubuntu:16.04 localhost:5000/my-ubuntu
 ###############################
 # Push image to Registry
 ###############################
-docker push localhost:5000/my-ubuntu
-docker image remove ubuntu:16.04
+sudo docker push localhost:5000/my-ubuntu
+sudo docker image remove ubuntu:16.04
 curl -X GET http://localhost:5000/v2/_catalog
 
 ###############################

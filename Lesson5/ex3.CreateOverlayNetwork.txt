@@ -1,0 +1,32 @@
+###########################
+# Create Overlay Network
+###########################
+
+# View Overlay Networks
+#--------------------------
+docker network ls
+
+# Create Custom Overlay Network
+#--------------------------
+docker network create -d overlay nginx-overlay
+
+# Create Replicated Service
+#--------------------------
+docker service create --name nginx-service-overlay \
+--publish target=80,published=80 --replicas=5 --network nginx-overlay nginx
+
+# Verify Overlay Network
+#--------------------------
+docker network inspect nginx-service-overlay
+
+# Verify Create Service
+#--------------------------
+docker service inspect nginx-service-overlay
+
+# Remove Service
+#--------------------------
+docker service rm nginx-service-overlay
+
+# Remove Network
+#--------------------------
+docker network rm nginx-overlay
