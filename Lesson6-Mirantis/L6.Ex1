@@ -1,0 +1,91 @@
+#--------------------------------
+# Install Mirantis Launchpad CLI
+#--------------------------------
+
+###############################
+# Verify Compute Resources on Master, Worker 1, Worker 2
+###############################
+
+# Note: Mirantis Kubernetes Engine (MKE) requires:
+# minimum of 8GB RAM, 10GB hard-disk, and 2 vCPUs
+
+free -m
+lscpu
+
+# Question: Which node meets the requirements?
+
+###############################
+# Setup Passwordless SSH
+###############################
+
+## Perform the following on Master, Worker 1, Worker 2
+ssh-keygen -b 2048 -t rsa -f ~/.ssh/id_rsa -q -P ""
+
+## Manually copy each public key for each node, into the other nodes in the ~/.ssh/authorized_keys file
+touch ~/.ssh/authorized_keys
+cat ~/.ssh/id_rsa.pub
+
+## Copy the id_rsa.pub key and paste in the other nodes ~/.ssh/authorized_keys file
+
+## Repeat steps until you see the other two nodes, id_rsa.pub key inside of the ~/.ssh/authorized_keys file for each node
+
+## On Master, Worker 1, Worker 2
+chmod 700 ~/.ssh
+chmod 600 ~/.ssh/authorized_keys
+
+## Verify passwordless ssh works
+## From each node, verify passwordless ssh works. Get the ip adddress of the other nodes and ssh.
+hostname -i
+ssh labsuser@<ENTER_COPIED_IP_ADDR>
+
+###############################
+# Setup Launchpad
+###############################
+
+## On Worker 2
+sudo wget https://github.com/Mirantis/launchpad/releases/tag/1.2.1 -P /usr/bin/launchpad
+sudo chmod 777 /usr/bin/launchpad
+## Verify binary instaled 
+launchpad version
+
+## Create config file. Change the Private IP Addresses For Each Node
+cat << EOF > ~/launchpad.yml 
+apiVersion: launchpad.mirantis.com/mke/v1.1
+kind: mke
+metadata:
+  name: my-mke
+spec:
+  mke:
+    adminUsername: admin
+    adminPassword: passw0rd!
+    installFlags:
+      - --default-node-orchestrator=kubernetes
+      - --pod-cidr 10.0.0.0/16
+  hosts:
+  - address: 172.31.39.69
+    role: manager
+    ssh:
+      keyPath: /home/labsuser/.ssh/id_rsa
+      user: labsuser
+    privateInterface: eth0
+  - address: 172.31.40.98
+    role: worker
+    ssh:
+      keyPath: /home/labsuser/.ssh/id_rsa
+      user: labsuser
+    privateInterface: eth0
+EOF
+
+
+## Register launchpad with your personal info (4 Questions)
+launchpad register
+
+## Launchpad Apply (~10 min to Complete)
+Note: Leave previous swarm node: docker swarm leave --force
+launchpad-linux-x64 apply --config launchpad.yml --force
+
+# ERROR INFO [ssh] 172.31.39.69:22: time="2021-05-14T06:08:35Z" level=info msg="Your Docker daemon version 20.10.0, build 1e08f21 (5.3.0-1030-aws) is compatible with UCP 3.3.7 (0c9bfa3)" 
+INFO [ssh] 172.31.39.69:22: time="2021-05-14T06:08:35Z" level=fatal msg="unable to validate system resource requirements: unable to verify storage requirements: Your system does not have available disk space. UCP requires a minimum of 25.00 GB, but you only have 5.84 GB You may proceed by specifying the '--force-minimums' flag, but you may experience scale and performance problems as a result" 
+INFO Cleaning up for 'Install MKE components'     
+INFO See /home/labsuser/.mirantis-launchpad/cluster/my-mke/apply.log for more logs  
+FATA [ssh] 172.31.39.69:22: failed to run MKE installer: Process exited with status 1 
